@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: hello-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-spring
+  template:
+    metadata:
+      labels:
+        app: hello-spring
+    spec:
+      nodeSelector:
+        app: hello-spring
+      containers:
+      - name: hello-spring
+        image: dksdygks32/hello-spring:mysql
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_HOST 
+          value: "hello-spring-mysql"
